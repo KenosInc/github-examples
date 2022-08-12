@@ -12,11 +12,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Build
         run: make build
-      - name: Upload artifacts to actions
-        uses: actions/upload-artifact@v2
-        with:
-          name: awesome-firmware.bin
-          path: ./build/awesome-firmware.bin
       - name: Upload artifacts to release page
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')

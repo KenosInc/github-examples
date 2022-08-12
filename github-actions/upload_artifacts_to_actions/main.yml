@@ -1,0 +1,18 @@
+name: build project
+on:
+  push:
+
+jobs:
+  build:
+    name: setup and build project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: make build
+      - name: Upload artifacts to actions
+        uses: actions/upload-artifact@v2
+        with:
+          name: awesome-firmware.bin
+          path: ./build/awesome-firmware.bin
