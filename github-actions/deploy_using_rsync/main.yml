@@ -1,0 +1,27 @@
+name: deploy
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src/**
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@5.2
+        with:
+          switches: -avzr --delete --exclude-from=rsync_exclude.txt
+          path: src/
+          remote_user: ec2-user
+          remote_path: /var/www/html
+          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}
