@@ -1,0 +1,14 @@
+name: Backup contents everyday at 0AM
+
+on:
+  schedule:
+    - cron: "0 10 * * *"
+
+jobs:
+  backup:
+    name: backup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: backup
+        run: backup.sh
