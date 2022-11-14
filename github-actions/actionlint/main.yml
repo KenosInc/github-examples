@@ -10,7 +10,7 @@ on:
       - synchronize
       - reopened
     paths:
-      - ".github/"
+      - ".github/**"
 
 jobs:
   actionlint:
