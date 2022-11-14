@@ -1,0 +1,19 @@
+name: checkout latest release
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # checkout the latest release
+      - name: get latest release with tag
+        id: latestrelease
+        run: |
+          echo "releasetag=$(curl -s --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/kenosinc/github-examples/releases/latest | jq '.tag_name' | sed 's/\"//g')" >> $GITHUB_OUTPUT
+      - name: confirm release tag
+        run: |
+          echo ${{ steps.latestrelease.outputs.releasetag }}
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.latestrelease.outputs.releasetag }}
