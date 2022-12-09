@@ -7,9 +7,16 @@ permissions:
   pull-requests: write
 
 jobs:
-  dependabot:
+  build:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - run: echo "running some build process"
+
+  dependabot:
+    needs: ["build"]
+    if: ${{ github.actor == 'dependabot[bot]' && success() }}
+
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
