@@ -1,0 +1,12 @@
+github-actions:
+- changed-files:
+  - any-glob-to-any-file: ['.github/**/*']
+
+'Type: Feature':
+- head-branch: ['^feat']
+
+'Type: Bug':
+- head-branch: ['^fix', '^bug']
+
+'Type: House Keeping':
+- head-branch: ['^chore']
