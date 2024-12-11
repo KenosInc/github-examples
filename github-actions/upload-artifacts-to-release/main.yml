@@ -1,15 +1,17 @@
-name: build project
+name: build for release
 on:
   release:
-    types: [prereleased, released]
+    types: 
+      - prereleased
+      - released
 
 jobs:
   build:
-    name: setup and build project
+    name: build and upload artifacts to release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build
         run: make build
       - name: Upload artifacts to release page
